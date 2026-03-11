@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>حاسبة السكر</title>
+</head>
+
+<body style="font-size:25px; text-align:right; direction:rtl">
+
+<h2>حاسبة الجرعة</h2>
+
+قياس السكر الحالي:<br>
+<input id="x"><br><br>
+
+قياس السكر السابق:<br>
+<input id="y"><br><br>
+
+الوقت بين القياسين (دقائق):<br>
+<input id="t"><br><br>
+
+<button onclick="calc()" style="font-size:25px">احسب</button>
+
+<h3 id="z"></h3>
+<h3 id="dose"></h3>
+
+<script>
+
+function calc(){
+
+var X = Number(document.getElementById("x").value);
+var Y = Number(document.getElementById("y").value);
+var T = Number(document.getElementById("t").value);
+
+var Z = X + ((X-Y)*3)/T;
+
+document.getElementById("z").innerHTML =
+"القياس المتوقع بعد 3 ساعات: " + Z.toFixed(1);
+
+if(Z < 70){
+
+document.getElementById("dose").innerHTML =
+"تحذير: السكر منخفض";
+
+}
+
+else if(Z >= 70 && Z < 200){
+
+document.getElementById("dose").innerHTML =
+"لا يأخذ أي جرعة";
+
+}
+
+else{
+
+var d = Math.floor((Z-70)/130);
+
+document.getElementById("dose").innerHTML =
+"الجرعة المناسبة هي: " + d;
+
+}
+
+}
+
+</script>
+
+</body>
+</html>
