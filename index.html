@@ -1,67 +1,99 @@
 <!DOCTYPE html>
-<html>
+<html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<title>حاسبة السكر</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>حاسبة السكر</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      direction: rtl;
+      text-align: right;
+      margin: 20px;
+      font-size: 24px;
+    }
+
+    h1 {
+      font-size: 28px;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      margin-bottom: 5px;
+    }
+
+    input {
+      width: 100%;
+      font-size: 24px;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+
+    button {
+      width: 100%;
+      font-size: 26px;
+      padding: 12px;
+      margin-top: 15px;
+    }
+
+    #result {
+      margin-top: 25px;
+      font-size: 26px;
+      line-height: 1.8;
+      font-weight: bold;
+    }
+  </style>
 </head>
+<body>
 
-<body style="font-size:25px; text-align:right; direction:rtl">
+  <h1>حاسبة السكر</h1>
 
-<h2>حاسبة الجرعة</h2>
+  <label>قياس السكر الحالي:</label>
+  <input id="x" type="number">
 
-قياس السكر الحالي:<br>
-<input id="x"><br><br>
+  <label>قياس السكر السابق:</label>
+  <input id="y" type="number">
 
-قياس السكر السابق:<br>
-<input id="y"><br><br>
+  <label>الوقت بين القياسين بالدقائق:</label>
+  <input id="t" type="number">
 
-الوقت بين القياسين (دقائق):<br>
-<input id="t"><br><br>
+  <button onclick="calc()">احسب</button>
 
-<button onclick="calc()" style="font-size:25px">احسب</button>
+  <div id="result"></div>
 
-<h3 id="z"></h3>
-<h3 id="dose"></h3>
+  <script>
+    function calc() {
+      var X = Number(document.getElementById("x").value);
+      var Y = Number(document.getElementById("y").value);
+      var T = Number(document.getElementById("t").value);
+      var result = document.getElementById("result");
 
-<script>
+      if (!X && X !== 0 || !Y && Y !== 0 || !T && T !== 0) {
+        result.innerHTML = "يرجى إدخال جميع القيم.";
+        return;
+      }
 
-function calc(){
+      if (T <= 0) {
+        result.innerHTML = "الوقت يجب أن يكون أكبر من 0.";
+        return;
+      }
 
-var X = Number(document.getElementById("x").value);
-var Y = Number(document.getElementById("y").value);
-var T = Number(document.getElementById("t").value);
+      var Z = X + (((X - Y) * 180) / T);
+      var text = "القياس المتوقع بعد 3 ساعات: " + Z.toFixed(1) + "<br>";
 
-var Z = X + ((X-Y)*180)/T;
+      if (Z < 70) {
+        text += "تحذير: السكر منخفض.";
+      } else if (Z < 200) {
+        text += "لا يأخذ أي جرعة.";
+      } else {
+        var d = Math.floor((Z - 70) / 130);
+        text += "الجرعة المناسبة هي: " + d;
+      }
 
-document.getElementById("z").innerHTML =
-"القياس المتوقع بعد 3 ساعات: " + Z.toFixed(1);
-
-if(Z < 70){
-
-document.getElementById("dose").innerHTML =
-"تحذير: السكر منخفض";
-
-}
-
-else if(Z >= 70 && Z < 200){
-
-document.getElementById("dose").innerHTML =
-"لا يأخذ أي جرعة";
-
-}
-
-else{
-
-var d = Math.floor((Z-70)/130);
-
-document.getElementById("dose").innerHTML =
-"الجرعة المناسبة هي: " + d;
-
-}
-
-}
-
-</script>
+      result.innerHTML = text;
+    }
+  </script>
 
 </body>
 </html>
