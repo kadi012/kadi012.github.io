@@ -31,7 +31,7 @@ var X = Number(document.getElementById("x").value);
 var Y = Number(document.getElementById("y").value);
 var T = Number(document.getElementById("t").value);
 
-var Z = X + ((X-Y)*3)/T;
+var Z = X + ((X-Y)*180)/T;
 
 document.getElementById("z").innerHTML =
 "القياس المتوقع بعد 3 ساعات: " + Z.toFixed(1);
