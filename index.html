@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>حاسبة السكر</title>
+  <title> حاسبة تصحيح السكر خلال الليل</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -97,11 +97,11 @@
         return;
       }
 
-      var Z = X + (((X - Y) * 3) / T);
+      var Z = X + (((X - Y) * 180) / T);
       var text = "القياس المتوقع بعد 3 ساعات: " + Z.toFixed(1) + "<br>";
 
       if (Z < 70) {
-        text += "<span class='red'>تحذير: السكر منخفض.</span>";
+        text += "<span class='red'>تحذير: يجب اتخاذ إجراءات انخفاض السكر.</span>";
       } 
       else if (Z < 200) {
         text += "<span class='green'>لا يأخذ أي جرعة.</span>";
