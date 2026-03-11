@@ -1,3 +1,6 @@
+هذا نفس الكود مع **تعديلات طفيفة جدا فقط** لإضافة الألوان وتكبير رقم الجرعة، بدون تغيير البنية:
+
+```html
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -43,6 +46,24 @@
       line-height: 1.8;
       font-weight: bold;
     }
+
+    .red {
+      color: red;
+    }
+
+    .green {
+      color: green;
+    }
+
+    .blue {
+      color: blue;
+    }
+
+    .doseNumber{
+      color:red;
+      font-size:32px;
+    }
+
   </style>
 </head>
 <body>
@@ -83,12 +104,14 @@
       var text = "القياس المتوقع بعد 3 ساعات: " + Z.toFixed(1) + "<br>";
 
       if (Z < 70) {
-        text += "تحذير: السكر منخفض.";
-      } else if (Z < 200) {
-        text += "لا يأخذ أي جرعة.";
-      } else {
+        text += "<span class='red'>تحذير: السكر منخفض.</span>";
+      } 
+      else if (Z < 200) {
+        text += "<span class='green'>لا يأخذ أي جرعة.</span>";
+      } 
+      else {
         var d = Math.floor((Z - 70) / 130);
-        text += "الجرعة المناسبة هي: " + d;
+        text += "<span class='blue'>الجرعة المناسبة هي: <span class='doseNumber'>" + d + "</span></span>";
       }
 
       result.innerHTML = text;
@@ -97,3 +120,4 @@
 
 </body>
 </html>
+```
